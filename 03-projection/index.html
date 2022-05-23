@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+        <script src="./script.js"></script>
+    </head>
+    <body>
+        <a-scene renderer="colorManagement: true" shadow="type: pcfsoft">
+            <!-- Room -->
+            <a-box rotation="0 0 0" width="20" height="20" depth="20" position="0 10 0" receive-spotlight-texture color="white" shadow="receive: true" material="side: back"></a-box>
+            <a-torus-knot position="0.0 2.0 0.0" shadow="cast: true" receive-spotlight-texture></a-torus-knot>
+
+            <!-- 'Ambient' pointlight -->
+            <a-entity light="type: point; intensity: 0.01;" position="0 10 0"></a-entity>
+
+            <!-- Lynx spotlight -->
+            <a-entity rotate-round position="0 3.0 0" rotation="0 0 45">
+                <!-- Indicator where the spotlight is -->
+                <a-box width="0.2" height="0.2" depth="0.8" position="5.0 0 0" rotation="0 90 0" color="#00FF00" ></a-box>
+
+                <a-entity light="type: spot; angle: 30; penumbra: 0.1; castShadow: true;" position="5.0 0.0 0.0" rotation="0 90 0"
+                    spotlight-texture="src: url(./assets/lynx.jpg); intensity: 4.0"></a-entity>
+            </a-entity>
+
+            <!-- WebXR spotlight -->
+            <a-entity rotation="34 -40 76">
+                <a-entity rotate-round position="0 7 0" rotation="0 80 20">
+                    <a-entity light="type: spot; angle: 10; penumbra: 0.1;" position="0.0 0.0 0.0"
+                        spotlight-texture="src: url(./assets/webxr.png); intensity: 4.0"></a-entity>
+                </a-entity>
+            </a-entity>
+
+            <!-- Camera rig -->
+            <a-entity id="rig" position="0 3.0 7.5">
+                <a-camera id="camera"></a-camera>
+
+                <!-- Hands -->
+                <a-entity hand-controls="hand: left" smooth-locomotion="target: #rig; reference: #camera"></a-entity>
+                <a-entity hand-controls="hand: right" snap-turn="target: #rig; reference: #camera"></a-entity>
+            </a-entity>
+        </a-scene>
+    </body>
+</html>
